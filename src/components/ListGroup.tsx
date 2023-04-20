@@ -1,12 +1,33 @@
-function ListGroup() {
+import { useState } from "react";
+
+interface Props {
+  items: string[];
+  heading: string;
+}
+
+function ListGroup({ items, heading }: Props) {
+  const [activeIndex, setActiveIndex] = useState(-1);
+
   return (
-    <ul className="list-group">
-      <li className="list-group-item">Cras saaas odio</li>
-      <li className="list-group-item">Dapibus ac facilisis in</li>
-      <li className="list-group-item">Morbi leo risus</li>
-      <li className="list-group-item">Porta ac consectetur ac</li>
-      <li className="list-group-item">Vestibulum at eros</li>
-    </ul>
+    <>
+      <h1>{heading}</h1>
+      {items.length === 0 && <p>No items found</p>}
+      <ul className="list-group">
+        {items.map((item, index) => (
+          <li
+            className={
+              activeIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => setActiveIndex(index)}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
